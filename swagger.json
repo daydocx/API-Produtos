@@ -1,0 +1,233 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API - PRODUTOS",
+        "description": "É composto por um crud de produtos.",
+        "contact": {
+            "email": "matheusferrazza@gmail.com"
+        },
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000/"
+        }
+    ],
+    "components": {
+        "schemas": {
+            "Produto": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "type": "string",
+                        "example": "Cerveja"
+                    },
+                    "descricao": {
+                        "type": "string",
+                        "example": "Uma lata de cerveja de 500ml"
+                    },
+                    "quantidade": {
+                        "type": "number",
+                        "example": 55
+                    },
+                    "preco": {
+                        "type": "number",
+                        "example": 5.99
+                    },
+                    "desconto": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "dataDesconto": {
+                        "type": "string",
+                        "example": "2022-02-01"
+                    },
+                    "categoria": {
+                        "type": "string",
+                        "example": "bebidas"
+                    },
+                    "imagem": {
+                        "type": "string",
+                        "format": "binary",
+                        "example": "Upload de imagem"
+                    }
+                },
+                "required": [
+                    "nome"
+                ]
+            }
+        }
+    },
+    "paths": {
+        "/produtos": {
+            "post": {
+                "summary": "Cadastro de produto",
+                "description": "Essa rota será responsável por cadastrar um novo produto.",
+                "tags": [
+                    "Produtos"
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "produto": {
+                                        "$ref": "#/components/schemas/Produto"
+                                    },
+                                    "imagem": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            }
+                        },
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Produto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Produto adicionado."
+                    },
+                    "404": {
+                        "description": "Produto não encontrado."
+                    },
+                    "500": {
+                        "description": "Um erro aconteceu"
+                    }
+                }
+            },
+            "get": {
+                "description": "Essa rota será responsável por listar produtos por nome, categoria, ID e preço.",
+                "summary": "Listagem de produtos",
+                "tags": [
+                    "Produtos"
+                ],
+                "parameters": [
+                    {
+                        "name": "nome",
+                        "in": "query",
+                        "description": "Nome do produto a ser procurado.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "categoria",
+                        "in": "query",
+                        "description": "Categoria do produto a ser procurado.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID do produto a ser procurado.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "preco",
+                        "in": "query",
+                        "description": "Preço do produto a ser procurado.",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Produto encontrado."
+                    },
+                    "404": {
+                        "description": "Produto não encontrado."
+                    },
+                    "500": {
+                        "description": "Um erro aconteceu"
+                    }
+                }
+            }
+        },
+        "/produtos/{id}": {
+            "put": {
+                "summary": "Atualização de produto",
+                "description": "Essa rota será responsável por atualizar um produto existente.",
+                "tags": [
+                    "Produtos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do produto a ser atualizado.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Produto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Produto atualizado."
+                    },
+                    "404": {
+                        "description": "Produto não encontrado."
+                    },
+                    "500": {
+                        "description": "Um erro aconteceu."
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Exclusão de produto",
+                "description": "Essa rota será responsável por excluir um produto existente.",
+                "tags": [
+                    "Produtos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do produto a ser excluído.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Produto excluído."
+                    },
+                    "404": {
+                        "description": "Produto não encontrado."
+                    },
+                    "500": {
+                        "description": "Um erro aconteceu."
+                    }
+                }
+            }
+        }
+    }
+}
