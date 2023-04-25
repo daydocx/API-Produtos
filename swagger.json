@@ -70,20 +70,6 @@
                     "content": {
                         "multipart/form-data": {
                             "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "produto": {
-                                        "$ref": "#/components/schemas/Produto"
-                                    },
-                                    "imagem": {
-                                        "type": "string",
-                                        "format": "binary"
-                                    }
-                                }
-                            }
-                        },
-                        "application/json": {
-                            "schema": {
                                 "$ref": "#/components/schemas/Produto"
                             }
                         }
@@ -179,7 +165,7 @@
                 ],
                 "requestBody": {
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "$ref": "#/components/schemas/Produto"
                             }
