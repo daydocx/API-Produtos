@@ -1,7 +1,7 @@
 API - PRODUTOS
 Esta documentação descreve a API de Produtos, que é composta por um CRUD de produtos.
 
-Contato: matheusferrazza@gmail.com
+
 
 Versão: 1.0
 
